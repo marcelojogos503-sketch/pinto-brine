@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="pintobrine"
+version="1.0.0"
+displayName="PINTObrine"
+authors="PINTObrine Project"
+description='''A survival horror entity that watches, learns, stalks and invades.''' 
+[[dependencies.pintobrine]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.pintobrine]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
