@@ -13,16 +13,6 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 minecraft {
     mappings channel: 'official', version: '1.20.1'
     copyIdeResources = true
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'info'
-            mods { pintobrine { source sourceSets.main } }
-        }
-        client { args '--username', 'Dev' }
-        server { args '--nogui' }
-    }
 }
 
 repositories { }
@@ -31,14 +21,43 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.26'
 }
 
+sourceSets {
+    main {
+        java {
+            setSrcDirs(['.'])
+            include '*.java'
+        }
+    }
+}
+
+processResources {
+    from('.') {
+        include 'mods.toml'
+        into 'META-INF'
+    }
+    from('.') {
+        include 'pack.mcmeta'
+    }
+    from('.') {
+        include 'en_us.json', 'pt_br.json'
+        into 'assets/pintobrine/lang'
+    }
+    from('.') {
+        include 'pintobrine.png'
+        into 'assets/pintobrine/textures/entity'
+    }
+}
+
 jar {
-    manifest { attributes([
-        'Specification-Title': 'Pintobrine',
-        'Specification-Vendor': 'Pintobrine',
-        'Specification-Version': '1',
-        'Implementation-Title': project.name,
-        'Implementation-Version': project.version
-    ]) }
+    manifest {
+        attributes([
+            'Specification-Title': 'Pintobrine',
+            'Specification-Vendor': 'Pintobrine',
+            'Specification-Version': '1',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.version
+        ])
+    }
 }
 
 jar.finalizedBy('reobfJar')
